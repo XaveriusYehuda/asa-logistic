@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { NavLink, useSearchParams } from "react-router-dom";
+import { Link } from "react-scroll";
 
 const DesktopViewNavBar = ({ scrollToSection, isNavbarActive, navbarMenu, subnavFunction, isSubnavActive, isScrolled }) => {
 
@@ -58,7 +59,7 @@ const DesktopViewNavBar = ({ scrollToSection, isNavbarActive, navbarMenu, subnav
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isNavbarActive && (
         <motion.div
           variants={containerVariants}
@@ -76,14 +77,10 @@ const DesktopViewNavBar = ({ scrollToSection, isNavbarActive, navbarMenu, subnav
             mt-5
             w-72
             overflow-hidden
-            rounded-2xl
-            bg-white/95
-            backdrop-blur-xl
-            shadow-2xl
             ${
               isScrolled 
-                ? 'border border-gray-200'
-                : ''
+                ? 'border border-gray-200 rounded-2xl bg-white/95 backdrop-blur-xl shadow-2xl'
+                : 'bg-none'
             }
             py-2
             z-50
@@ -96,7 +93,7 @@ const DesktopViewNavBar = ({ scrollToSection, isNavbarActive, navbarMenu, subnav
         >
           {navbarMenu.map((menu, index) => (
             <React.Fragment key={menu.idHTML}>
-              <MotionNavLink 
+              {/* <MotionNavLink 
                 to={menu.path}
                 variants={itemVariants}
                 onClick={() => {
@@ -109,7 +106,27 @@ const DesktopViewNavBar = ({ scrollToSection, isNavbarActive, navbarMenu, subnav
                 className={`flex hover:text-red-calm ${String(currentId) === String(menu.idHTML) ? 'text-red-calm font-bold' : isScrolled ? 'text-black' : 'text-white'} transition duration-300 ease-in-out text-sm`}
               >
                 {menu.title}
-              </MotionNavLink>
+              </MotionNavLink> */}
+              <motion.div variants={itemVariants}>
+                <Link
+                  to={menu.idHTML}
+                  spy
+                  smooth
+                  duration={1500}
+                  offset={-70}
+                  onClick={() => {
+                    if (isNavbarActive === "service") { 
+                      subnavFunction(menu.path);
+                    } else {
+                      //  closeDropdown(); setTimeout(() => {scrollToSection(menu.path);}, 200);
+                      scrollToSection(menu.path);
+                    }
+                  }}
+                  className={`flex hover:text-red-calm ${String(currentId) === String(menu.idHTML) ? 'text-red-calm font-bold' : isScrolled ? 'text-black' : 'text-white'} transition duration-300 ease-in-out text-sm`}
+                >
+                  {menu.title}
+                </Link>
+              </motion.div>
 
               {index !== navbarMenu.length - 1 && (
                 <div className="mx-4 border-b border-gray-100" />

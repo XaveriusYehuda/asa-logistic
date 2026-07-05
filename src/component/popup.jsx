@@ -7,7 +7,7 @@ const Popup = ({ contentTitle, contentText, popupActive, setPopupActive }) => {
   
 
   return (
-    <div onClick={() => setPopupActive(false)} className={`${popupActive === true ? 'fixed' : 'hidden'} inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 md:p-10 transition-opacity`}>
+    <div onClick={() => setPopupActive(false)} className={`${popupActive === true ? 'fixed' : 'hidden'} inset-0 z-70 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 md:p-10 transition-opacity`}>
   
       <div 
         className="bg-white rounded-[40px] max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] relative p-8 md:p-12"

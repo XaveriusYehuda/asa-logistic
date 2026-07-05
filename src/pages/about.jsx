@@ -30,6 +30,7 @@ import forkLiftIcon from '../assets/mainServiceCard/centerUndernameExim.png';
 import { SERVICE_SCHEMAS } from '../data/serviceSchemas';
 import { uploadRFQ } from '../api/rfqAPI'
 import sampleArticleFromDB from "../data/articleData";
+import { animateScroll as scroll } from 'react-scroll';
 
 const About = ( {isLogin, navigate, pageVariants, setArticleData, choosenArticle, setChoosenArticle} ) => {
 
@@ -115,7 +116,11 @@ const About = ( {isLogin, navigate, pageVariants, setArticleData, choosenArticle
   const activeArticle = (data, index) => {
     setChoosenArticle(index);
     setArticleData(data);
-    window.scrollTo(0, 0);
+    // window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    scroll.scrollToTop({
+      duration: 1500, // 1.5 detik (makin besar angkanya, makin lambat)
+      smooth: 'easeInOutQuint' // Jenis transisi (linear, easeIn, easeOut, dll)
+    });
     navigate(`/article?tab=${data.path}`);
   };
 
@@ -706,7 +711,7 @@ const About = ( {isLogin, navigate, pageVariants, setArticleData, choosenArticle
           <div className="flex lg:absolute z-20 lg:z-10 lg:top-[50%] lg:left-[50%] transform -translate-y-10 lg:-translate-x-[5%] lg:-translate-y-[35%] w-auto h-auto  lg:w-[600px] lg:h-[360px] bg-black-calm rounded-4xl shadow-xl opacity-100 flex flex-col justify-center py-8">
             <h3 className="my-2 mx-8 lg:ml-20 xl:ml-24 mr-4 font-bold text-3xl lg:text-4xl text-white">. Logistic Solution</h3>
             <p className="my-4 mx-8 lg:ml-20 xl:ml-24 mr-8 text-xs md:text-sm leading-7 font-normal tracking-normal text-white overflow-hidden text-clip">Assisting you in discovering the right solution through objective advice is our priority. Our service procurement process is conducted transparently, following the standards and specifications developed by our Supply Chain Solution team.</p>
-            <div className="ml-24 mt-4 mb-4 lg:mb-12">
+            <div className="my-4 mx-8 lg:ml-20 xl:ml-24 mr-8 mb-4 lg:mb-12">
               <button onClick={() => navigate('/contact')} className="inline-flex items-center gap-2 text-white leading-7 text-clip tracking-wide font-inter text-sm md:text-base font-semibold hover:font-extrabold transition-colors group transition duration-300 ease-in-out fill-current">
                 Get a Quote for Your Business
                 <svg
@@ -748,11 +753,11 @@ const About = ( {isLogin, navigate, pageVariants, setArticleData, choosenArticle
 
             <div className="relative z-10 max-w-7xl mx-auto w-full">
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-8 mb-16">
                 
                 {sampleArticleFromDB.map((data, index) => (
-                  <div key={data.path} className="bg-white rounded-2xl mx-6 shadow-xl transition-transform hover:-translate-y-2 duration-300">
-                    <div className="h-[55%] overflow-hidden">
+                  <div key={data.path} className="bg-white rounded-2xl mx-2 shadow-xl transition-transform hover:-translate-y-2 duration-300 overflow-hidden">
+                    <div className="h-min-[15%] h-max-[55%] h-auto overflow-hidden">
                       <img 
                         src={data.featured_image}
                         alt="Logistics Strategy" 

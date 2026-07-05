@@ -54,7 +54,6 @@ const Dashboard = ({ onSelectRequest }) => {
     return <div className="p-8 text-center text-red-500 font-bold">Error: {error}</div>;
   }
 
-  console.log(requests.incoming[0]);
   return (
     <main id="dashboard">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-6 gap-4 mb-8">

@@ -4,6 +4,7 @@ import careerData from '../data/careerData';
 import jobVacancyImage from '../assets/careerImage/jobVacancyImage.png';
 import jobVacancyIcon from '../assets/careerImage/jobVacancyIcon.png';
 import internshipImage from '../assets/careerImage/internshipImage.png';
+import { Link } from "react-scroll";
 
 const Career = ({currentCareerIndex, scrollToSection, pageVariants}) => {
 
@@ -40,17 +41,22 @@ const Career = ({currentCareerIndex, scrollToSection, pageVariants}) => {
 
         <div className="absolute bottom-5 left-0 w-full flex items-start justify-start md:justify-center gap-8 xl:gap-12 px-8 my-4 overflow-x-auto no-scrollbar md:overflow-x-visible z-30">
           {careerData.map((slide, index) => (
-            <button 
+            <Link 
+              to={slide.idHTML}
+              spy
+              smooth
+              duration={1500}
+              offset={-70}
               key={slide.idHTML} 
-              onClick={() => scrollToSection(slide.idHTML, slide.path)} 
+              onClick={() => scrollToSection(slide.path)} 
               className={`group transition duration-300 ease-in-out origin-center cursor-pointer outline-none w-42 min-w-[90px]`}>
 
               <div className={`w-full h-1 rounded-full transition duration-300 ease-in-out ${currentCareerIndex === slide.idHTML ? 'bg-red-calm scale-x-110' : 'bg-gray-100/70 group-hover:bg-red-calm'}`}></div>
 
-              <div className={`group-hover:text-red-calm font-inter font-semibold text-xs xl:text-sm transition duration-300 ease-in-out pt-3 ${currentCareerIndex === slide.idHTML ? 'text-red-calm' : 'text-gray-100/70'} rounded-full`}>
+              <div className={`group-hover:text-red-calm font-inter font-semibold text-xs xl:text-sm text-center transition duration-300 ease-in-out pt-3 ${currentCareerIndex === slide.idHTML ? 'text-red-calm' : 'text-gray-100/70'} rounded-full`}>
                 {index === 0 ? "Information System" : index === 1 ? "Job Vacancy" : "Internship Program"}
               </div>
-            </button>
+            </Link>
           ))}
         </div>
       </section>

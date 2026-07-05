@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { uploadFinalRFQ } from "../../../api/finalAPI";
 
-const Worksheet = ({ rfqNumber, serviceDetails, selectedRequestId, onUploadSuccess }) => {
+const Worksheet = ({ rfqNumber, serviceDetails, selectedRequestId, onUploadSuccess, triggerPopup, previewUrl, setPreviewUrl, triggerPopupView }) => {
 
   const {
     company_name = "-",
@@ -10,12 +10,13 @@ const Worksheet = ({ rfqNumber, serviceDetails, selectedRequestId, onUploadSucce
     pic_email = "-",
   } = serviceDetails || {};
 
+  const popupDetailData = [rfqNumber, serviceDetails];
+
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
 
   const rfq_number = selectedRequestId;
-  console.log(rfq_number);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -47,6 +48,50 @@ const Worksheet = ({ rfqNumber, serviceDetails, selectedRequestId, onUploadSucce
       setMessage({ type: "error", text: error.message });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleView = () => {
+    triggerPopupView(`http://localhost:3000/api/rfq-final/view/${encodeURIComponent(selectedRequestId)}`, popupDetailData);
+  };
+
+  const handleDownload = async () => {
+    try {
+      const url = `http://localhost:3000/api/rfq-final/download/${encodeURIComponent(selectedRequestId)}`;
+      const response = await fetch(url); // Sekarang objek 'response' sudah ada!
+
+      if (response.ok) {
+        // Mengubah hasil fetch menjadi file download
+        const blob = await response.blob();
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = `RFQ-${selectedRequestId}.pdf`; // Nama file download
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+        triggerPopup(
+          "Pemberitahuan",
+          <p className="py-4 text-sm lg:text-base leading-6 md:leading-7 font-semibold tracking-normal text-black text-left">
+            File <span className="font-extrabold text-red-calm">berhasil</span> diunduh. 
+          </p>
+        );
+      } else {
+        triggerPopup(
+          "Pemberitahuan",
+          <p className="py-4 text-sm lg:text-base leading-6 md:leading-7 font-semibold tracking-normal text-black text-left">
+            File <span className="font-extrabold text-red-calm">gagal</span> diunduh.
+          </p>
+        );
+      }
+    } catch (error) {
+      triggerPopup(
+        "Pemberitahuan",
+        <p className="py-4 text-sm lg:text-base leading-6 md:leading-7 font-semibold tracking-normal text-black text-left">
+          Terjadi kesalahan koneksi saat mengunduh file.
+        </p>
+      );
     }
   };
   
@@ -145,10 +190,16 @@ const Worksheet = ({ rfqNumber, serviceDetails, selectedRequestId, onUploadSucce
           </div>
 
           <div className="flex flex-col items-center gap-3 pt-4">
-            <button type="button" className="w-full max-w-xs bg-red-calm text-white font-bold py-3.5 rounded-full text-sm shadow-[0_10px_25px_rgba(239,51,38,0.2)] hover:bg-red-700 transition-all hover:scale-105">
+            <button 
+              type="button" 
+              onClick={() => handleView()}
+              className="w-full max-w-xs bg-red-calm text-white font-bold py-3.5 rounded-full text-sm shadow-[0_10px_25px_rgba(239,51,38,0.2)] hover:bg-red-700 transition-all hover:scale-105">
               Detail Quote Request
             </button>
-            <button type="button" className="w-full max-w-xs bg-red-calm text-white font-bold py-3.5 rounded-full text-sm shadow-[0_10px_25px_rgba(239,51,38,0.2)] hover:bg-red-700 transition-all hover:scale-105">
+            <button 
+              type="button" 
+              onClick={() => handleDownload()}
+              className="w-full max-w-xs bg-red-calm text-white font-bold py-3.5 rounded-full text-sm shadow-[0_10px_25px_rgba(239,51,38,0.2)] hover:bg-red-700 transition-all hover:scale-105">
               Download Quote Request
             </button>
           </div>

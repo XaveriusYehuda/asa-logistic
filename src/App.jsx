@@ -22,6 +22,8 @@ import Visitor from './pages/dashboard/visitor';
 import Officer from './pages/dashboard/officer';
 import ProtectedRoute from './context/protectedRoute';
 import { useAuth } from "./context/AuthContext";
+import { animateScroll as scroll } from 'react-scroll';
+import { Link as scrolllink } from 'react-scroll';
 
 function App() {
 
@@ -59,15 +61,16 @@ function App() {
   const goToServiceSlide = (idHTML, path) => {
     // const index = serviceData.findIndex(data => data.idHTML === slideServiceIndex)
     setCurrentServiceIndex(idHTML);
+    // window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    scroll.scrollToTop({
+      duration: 1500, // 1.5 detik (makin besar angkanya, makin lambat)
+      smooth: 'easeInOutQuint' // Jenis transisi (linear, easeIn, easeOut, dll)
+    });
     navigate(path);
   }
 
-  const scrollToSection = (id, path) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      navigate(path);
-    }
+  const scrollToSection = (path) => {
+    navigate(path);
   };
 
   const pageVariants = {
@@ -148,7 +151,7 @@ function App() {
   }, []);
 
   return (
-    <section className="relaticew-full">
+    <section className="relatiVe w-full">
       <Popup 
         popupActive={popupActive} 
         setPopupActive={setPopupActive} 
@@ -211,7 +214,7 @@ function App() {
           />
           <Route path="/officer" element={
             <ProtectedRoute setActiveDashboard={setActiveDashboard} allowedRole="officer">
-              <Officer pageVariants={pageVariants}/>
+              <Officer pageVariants={pageVariants} triggerPopup={triggerPopup} />
             </ProtectedRoute>
           }
 

@@ -8,7 +8,7 @@ import Worksheet from "./officer-dashboard/Worksheet";
 import { getRFQDetail } from "../../api/worksheetAPI";
 import { useAsyncError } from "react-router-dom";
 
-const Officer = ({pageVariants}) => {
+const Officer = ({pageVariants, triggerPopup}) => {
 
   const [activePage, setActivePage] = useState("dashboard");
 
@@ -21,6 +21,10 @@ const Officer = ({pageVariants}) => {
 
   const [selectedRequestId, setSelectedRequestId] = useState(null);
   const [dataVisitor, setDataVisitor] = useState(null);
+
+  const [popupView, setPopupView] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const [popupData, setPopupData] = useState(null);
 
   const { user, logout } = useAuth();
 
@@ -55,7 +59,60 @@ const Officer = ({pageVariants}) => {
     setDataVisitor(data);
   };
 
-  // console.log(rfqData);
+  const triggerPopupView = (content, popupDetailData) => {
+    setPreviewUrl(content);
+    setPopupView(true);
+    setPopupData(popupDetailData);
+  };
+
+  const handleDownloadInPopupView = async () => {
+    try {
+      const url = `http://localhost:3000/api/rfq-final/download/${encodeURIComponent(selectedRequestId)}`;
+      const response = await fetch(url); // Sekarang objek 'response' sudah ada!
+
+      if (response.ok) {
+        // Mengubah hasil fetch menjadi file download
+        const blob = await response.blob();
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = `RFQ-${selectedRequestId}.pdf`; // Nama file download
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+        triggerPopup(
+          "Pemberitahuan",
+          <p className="py-4 text-sm lg:text-base leading-6 md:leading-7 font-semibold tracking-normal text-black text-left">
+            File <span className="font-extrabold text-red-calm">berhasil</span> diunduh. 
+          </p>
+        );
+      } else {
+        triggerPopup(
+          "Pemberitahuan",
+          <p className="py-4 text-sm lg:text-base leading-6 md:leading-7 font-semibold tracking-normal text-black text-left">
+            File <span className="font-extrabold text-red-calm">gagal</span> diunduh.
+          </p>
+        );
+      }
+    } catch (error) {
+      triggerPopup(
+        "Pemberitahuan",
+        <p className="py-4 text-sm lg:text-base leading-6 md:leading-7 font-semibold tracking-normal text-black text-left">
+          Terjadi kesalahan koneksi saat mengunduh file.
+        </p>
+      );
+    }
+  };
+
+  const rfqNumber = rfqData ? rfqData.rfqNumber : "-";
+  const picName =  rfqData ? rfqData.serviceDetails.pic_name : "-";
+  const companyName =  rfqData ? rfqData.serviceDetails.company_name : "-";
+  const companyAddress =  rfqData ? rfqData.serviceDetails.company_address : "-";
+  const picEmail =  rfqData ? rfqData.serviceDetails.pic_email : "-";
+  const picNumber =  rfqData ? rfqData.serviceDetails.pic_number : "-";
+  const hsCode =  rfqData ? rfqData.serviceDetails.hs_code : "-";
+  const notes =  rfqData ? rfqData.serviceDetails.notes : "-";
 
   return (
     <motion.div
@@ -65,6 +122,98 @@ const Officer = ({pageVariants}) => {
       exit="exit"
       className="w-full"
     >
+      <div onClick={() => setPopupView(false)} className={`${popupView === true ? 'fixed' : 'hidden'} inset-0 z-60 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 md:p-10 transition-opacity`}>
+  
+        <div 
+          className="bg-white rounded-[40px] max-w-7xl w-full max-h-[90vh] overflow-y-auto shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] relative p-8 md:p-12"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            
+            <div className="lg:col-span-4 space-y-5">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-2.5 h-2.5 bg-[#ef3326] rounded-full inline-block"></span>
+                <h2 className="text-2xl sm:text-3xl font-black text-black tracking-tight flex items-center gap-2">
+                  Document Review
+                </h2>
+                <button onClick={() => handleDownloadInPopupView()} className="text-[#ef3326] bg-red-50 p-1.5 rounded-lg border border-red-200 hover:bg-red-100 transition-colors">
+                  <svg className="w-4 h-4 stroke-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                  </svg>
+                </button>
+              </div>
+
+              <div className="space-y-4 text-sm font-bold">
+                <div>
+                  <p className="text-[#ef3326] text-[11px] tracking-wide mb-0.5">Name</p>
+                  <p className="text-black text-base font-extrabold">{picName}</p>
+                </div>
+                
+                <div>
+                  <p className="text-[#ef3326] text-[11px] tracking-wide mb-0.5">Company</p>
+                  <p className="text-black text-base font-extrabold">{companyName}</p>
+                </div>
+                
+                <div>
+                  <p className="text-[#ef3326] text-[11px] tracking-wide mb-0.5">Mail Number</p>
+                  <p className="text-black text-base font-extrabold">{rfqNumber}</p>
+                </div>
+                
+                <div>
+                  <p className="text-[#ef3326] text-[11px] tracking-wide mb-0.5">Email</p>
+                  <p className="text-black text-base font-extrabold">{picEmail}</p>
+                </div>
+                
+                <div>
+                  <p className="text-[#ef3326] text-[11px] tracking-wide mb-0.5">Company Address</p>
+                  <p className="text-black text-base font-extrabold">{companyAddress}</p>
+                </div>
+                
+                <div>
+                  <p className="text-[#ef3326] text-[11px] tracking-wide mb-0.5">Whatsapp Number</p>
+                  <p className="text-black text-base font-extrabold">{picNumber}</p>
+                </div>
+                
+                <div>
+                  <p className="text-[#ef3326] text-[11px] tracking-wide mb-0.5">HS Code</p>
+                  <p className="text-black text-base font-extrabold">{hsCode}</p>
+                </div>
+                
+                <div>
+                  <p className="text-[#ef3326] text-[11px] tracking-wide mb-0.5">The Documents We Deal With</p>
+                  <p className="text-black text-base font-extrabold">-</p>
+                </div>
+                
+                <div>
+                  <p className="text-[#ef3326] text-[11px] tracking-wide mb-0.5">Notes</p>
+                  <p className="text-black text-base font-extrabold">{notes}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-8 h-full flex flex-col justify-center">
+              <div className="bg-[#d2d2d2] rounded-[48px] p-4 flex items-center justify-center shadow-inner aspect-[4/5] lg:aspect-auto lg:h-[65vh] w-full overflow-hidden">
+                
+                {/* Section Preview PDF */}
+                {previewUrl && (
+                  <div className="bg-white w-full h-full rounded-[32px] shadow-lg overflow-y-auto select-text text-[10px] text-gray-800 font-medium">
+                    
+                    {/* Iframe Kontainer PDF */}
+                    <iframe 
+                      src={previewUrl} 
+                      title="RFQ PDF Preview"
+                      className="w-full h-full rounded-xl shadow-lg"
+                      frameBorder="0"
+                    />
+                  </div>
+                )}
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
       <div className="h-screen bg-[#2D2D2D] flex font-sans antialiased text-black select-none">
     
         <aside className="w-64 bg-[#2D2D2D] text-white flex flex-col justify-between py-10 px-6 flex-shrink-0">
@@ -199,6 +348,10 @@ const Officer = ({pageVariants}) => {
                       selectedRequestId={selectedRequestId}
                       rfqNumber={rfqData.rfqNumber || rfqData.rfq_number} 
                       serviceDetails={rfqData.serviceDetails || rfqData.service_details} 
+                      triggerPopup={triggerPopup}
+                      previewUrl={previewUrl} 
+                      setPreviewUrl={setPreviewUrl}
+                      triggerPopupView={triggerPopupView}
                     />
                   ) : (
                     <div className="p-8 text-center text-gray-400">
