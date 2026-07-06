@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { motion } from "framer-motion";
 import careerData from '../data/careerData';
+import heroCareer from '../assets/bg-career.webp';
 import jobVacancyImage from '../assets/careerImage/jobVacancyImage.png';
 import jobVacancyIcon from '../assets/careerImage/jobVacancyIcon.png';
 import internshipImage from '../assets/careerImage/internshipImage.png';
@@ -22,7 +23,7 @@ const Career = ({currentCareerIndex, scrollToSection, pageVariants}) => {
         <div className="md:hidden h-full w-full"></div>
         <div className="md:relative md:h-[88px] lg:h-[120px] w-full"></div>
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <div className={`absolute inset-0 bg-[url(src/assets/bg-career.png)] bg-cover bg-center bg-no-repeat}`} />
+          <img src={heroCareer} alt="Hero Career Page" className={`absolute inset-0 bg-cover bg-center bg-no-repeat}`} />
         </div>
         <div className="bg-black z-10 inset-0 absolute opacity-20">
         </div>
@@ -111,8 +112,8 @@ const Career = ({currentCareerIndex, scrollToSection, pageVariants}) => {
           </div>
           <img src={jobVacancyIcon} className="h-[150px] w-[210px] lg:h-[200px] lg:w-[280px] opacity-0 md:opacity-100 absolute z-40 -translate-x-20 translate-y-40 lg:-translate-x-25 lg:translate-y-35 translate" />
         </div>
-        <div className="w-full z-40 h-[330px] md:h-[450px] md:w-2/3 md:min-w-[330px] md:max-w-[360px] bg-[url(src/assets/careerImage/jobVacancyImage.png)] bg-cover bg-start md:bg-center bg-no-repeat rounded-2xl shadow-xl opacity-100">
-        </div>
+        <img src={jobVacancyImage} alt="Job Vacancy" className="w-full z-40 h-[330px] md:h-[450px] md:w-2/3 md:min-w-[330px] md:max-w-[360px] bg-cover bg-start md:bg-center bg-no-repeat rounded-2xl shadow-xl opacity-100"
+        />
       </section>
       <section class="relative my-14 px-16 leading-7 text-xs md:text-sm text-black font-inter font-semibold text-center tracking-widest">
         We strive to build a
@@ -123,11 +124,9 @@ const Career = ({currentCareerIndex, scrollToSection, pageVariants}) => {
         <span className="inline-block bg-red-calm text-white px-10 py-1.5 rounded-full font-bold text-md mb-6 shadow-lg">
           Internship
         </span>
-        <div className="flex flex-col w-full my-18 md:flex-row items-center justify-center">
-          <div className="flex w-full h-[340px] md:w-1/2 items-center justify-center">
-            <div className="p-4 w-7/8 md:w-5/6 h-full bg-[url(src/assets/careerImage/internshipImage.png)] bg-cover bg-center bg-no-repeat rounded-2xl shadow-xl opacity-100"></div>
-          </div>
-          <div className="flex w-full h-[340px] md:w-1/2 items-center justify-center">
+        <div className="flex flex-col w-full max-w-7xl my-18 md:flex-row items-center justify-center">
+            <img src={internshipImage} alt="Internship" className="flex items-center justify-center w-full md:w-3/7 max-h-[340px] bg-cover bg-center bg-no-repeat rounded-2xl shadow-xl opacity-100 md:mr-8"/>
+          <div className="flex w-full max-h-[340px] md:w-1/2 items-center justify-center">
             <div className="flex flex-col w-full p-8 items-start justify-center">
               <h2 className="ml-4 text-3xl/9 md:text-4xl/12 font-bold tracking-wide text-black py-4 max-w-3xl text-left justify-self-start">
                 <div className="absolute inline h-2.5 w-2.5 block bg-red-calm ml-2 self-end mb-2.25 transform -translate-x-6 rounded-full"></div>

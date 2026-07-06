@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { motion } from "framer-motion";
 import {resourceData, goalsData } from '../data/resourceData';
-import bgHero3 from '../assets/bg-hero-3.png';
+import bgHero3 from '../assets/bg-hero-3.webp';
 import commitmentImage from '../assets/resourceImage/commitment.png';
 import valuesImage from '../assets/resourceImage/values.png';
 import cultureImage from '../assets/resourceImage/culture.png';
@@ -31,7 +31,7 @@ const Resource = ({currentResourceIndex, scrollToSection, navigate, pageVariants
         <div className="md:hidden h-full w-full"></div>
         <div className="md:relative md:h-[88px] lg:h-[120px] w-full"></div>
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <div className={`absolute inset-0 bg-[url(src/assets/bg-hero-3.png)] bg-cover bg-center bg-no-repeat}`} />
+          <img src={bgHero3} alt="Hero About Page" className={`absolute inset-0 bg-cover bg-center bg-no-repeat}`} />
         </div>
         <div className="bg-black z-10 inset-0 absolute opacity-20">
         </div>

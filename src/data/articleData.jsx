@@ -1,10 +1,12 @@
+import article1 from '../assets/article-1.webp';
+
 const sampleArticleFromDB = [
   {
     path: "article-s8b92",
     title: "Mengenal Ekspor Impor untuk Pemula: Langkah Awal Menembus Pasar Global",
     excerpt: "Logistik adalah seni mengelola kekacauan di balik layar agar konsumen bisa menikmati kemudahan di depan layar.",
     created_at: "2026-06-05",
-    featured_image: "src/assets/article-1.jpg",
+    featured_image: article1,
     content: `
       <p>Di era globalisasi saat ini, batas antarnegara bukan lagi penghalang untuk mengembangkan bisnis. Perdagangan internasional melalui aktivitas ekspor dan impor kini bisa diakses oleh siapa saja, mulai dari skala UMKM hingga perusahaan besar. Bagi Anda yang baru memulai, memahami dasar-dasar serta payung hukum ekspor-impor adalah langkah krusial agar proses bisnis berjalan legal, aman, dan menguntungkan.</p>
 
@@ -48,7 +50,7 @@ const sampleArticleFromDB = [
     title: "Memahami Incoterms: Batas Tanggung Jawab Penjual dan Pembeli dalam Perdagangan Internasional",
     excerpt: "Logistik adalah seni mengelola kekacauan di balik layar agar konsumen bisa menikmati kemudahan di depan layar.",
     created_at: "2026-06-05",
-    featured_image: "src/assets/article-1.jpg",
+    featured_image: article1,
     content: `
       <p>Dalam perdagangan internasional, jarak yang jauh dan perbedaan bahasa sering kali memicu salah paham terkait pengiriman barang. Siapa yang menanggung biaya kargo laut? Siapa yang bertanggung jawab jika barang rusak di tengah jalan?</p>
 
@@ -147,7 +149,7 @@ const sampleArticleFromDB = [
     title: "Checklist Dokumen Penting untuk Kelancaran Proses Ekspor-Impor",
     excerpt: "Logistik adalah seni mengelola kekacauan di balik layar agar konsumen bisa menikmati kemudahan di depan layar.",
     created_at: "2026-06-05",
-    featured_image: "src/assets/article-1.jpg",
+    featured_image: article1,
     content: `
       <p>Salah satu tantangan terbesar dalam aktivitas ekspor-impor adalah manajemen dokumen. Kekurangan satu dokumen saja dapat menyebabkan barang tertahan di area pabean (bea cukai), memicu denda penumpukan (demurrage), atau bahkan pembatalan transaksi.</p>
 

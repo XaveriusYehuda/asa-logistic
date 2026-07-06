@@ -1,32 +1,29 @@
 import React, {useState, useEffect} from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navigate, NavLink } from "react-router-dom";
-import bghero1 from '../assets/bg-hero-1.png'
-import exportHandlingIcon from '../assets/service-card/export-handling-icon.png'
-import internationalFFIcon from '../assets/service-card/international-ff-icon.png'
-import domesticLogisticIcon from '../assets/service-card/domestic-logistic-icon.png'
-import documentClearanceIcon from '../assets/service-card/document-clearance-icon.png'
-import undernameEximIcon from '../assets/service-card/undername-exim-icon.png'
+import exportHandlingIcon from '../assets/service-card/export-handling-icon.webp'
+import internationalFFIcon from '../assets/service-card/international-ff-icon.webp'
+import domesticLogisticIcon from '../assets/service-card/domestic-logistic-icon.webp'
+import documentClearanceIcon from '../assets/service-card/document-clearance-icon.webp'
+import undernameEximIcon from '../assets/service-card/undername-exim-icon.webp'
 import rightArrrow from '../assets/right-arrow-red.svg'
 import rightArrrowWhite from '../assets/right-arrow-white.svg'
-import deliveredIcon from '../assets/portfolio/delivered-cargo-icon.png'
-import handledClientsIcon from '../assets/portfolio/handled-clients-icon.png'
-import coveredCountriesIcon from '../assets/portfolio/covered-countries-icon.png'
+import deliveredIcon from '../assets/portfolio/delivered-cargo-icon.webp'
+import handledClientsIcon from '../assets/portfolio/handled-clients-icon.webp'
+import coveredCountriesIcon from '../assets/portfolio/covered-countries-icon.webp'
 import alfiLogo from '../assets/alfi-logo.png'
-import bgAchievements1 from '../assets/bg-achievement-1.png'
-import bgAchievements2 from '../assets/bg-achievement-2.png'
+import bgAchievements1 from '../assets/bg-achievement-1.webp'
+import bgAchievements2 from '../assets/bg-achievement-2.webp'
 import maerskLogo from '../assets/partner-grid/maersk-logo.png'
 import hafaLogo from '../assets/partner-grid/hafa-logo.png'
 import mscLogo from '../assets/partner-grid/msc-logo.png'
-import logisticSolutionAcc from '../assets/logistic-solution-acc.png'
-// import logisticSolution from './assets/logistic-solution-1.png'
-import article1 from '../assets/article/article-1.png'
-import bgArticle from '../assets/bg-article.png'
+import logisticSolutionAcc from '../assets/logistic-solution-acc.webp'
+import bgArticle from '../assets/bg-article.webp'
 import whiteDownChevron from '../assets/white-down-chevron.svg';
-import bgHero1 from '../assets/bg-hero-1.png';
-import bgHero2 from '../assets/bg-hero-2.png';
-import bgHero3 from '../assets/bg-hero-3.png';
-import forkLiftIcon from '../assets/mainServiceCard/centerUndernameExim.png';
+import bgHero1 from '../assets/bg-hero-1.webp';
+import bgHero2 from '../assets/bg-hero-2.webp';
+import bgHero3 from '../assets/bg-hero-3.webp';
+import forkLiftIcon from '../assets/formIcon.png';
 import { SERVICE_SCHEMAS } from '../data/serviceSchemas';
 import { uploadRFQ } from '../api/rfqAPI'
 import sampleArticleFromDB from "../data/articleData";

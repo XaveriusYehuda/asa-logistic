@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Popup from "../component/popup";
 import { SERVICE_SCHEMAS } from '../data/serviceSchemas';
 import { uploadRFQ } from '../api/rfqAPI'
-import forkLiftIcon from '../assets/mainServiceCard/centerUndernameExim.png';
+import forkLiftIcon from '../assets/formIcon.png';
 
 const ContactUs = ({ isLogin, pageVariants }) => {
 

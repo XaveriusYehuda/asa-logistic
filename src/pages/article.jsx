@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { motion } from "framer-motion";
 import { NavLink, useSearchParams } from "react-router-dom";
-import article1 from '../assets/article-1.jpg';
+import article1 from '../assets/article-1.webp';
 import customsCredibility from '../assets/resourceImage/customsCredibility.png';
 import deliveryAccuracy from '../assets/resourceImage/deliveryAccuracy.png';
 import integratedSupplyChain from '../assets/resourceImage/integratedSupplyChain.png';

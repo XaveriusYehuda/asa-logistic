@@ -123,7 +123,7 @@ const Service = ({ goToServiceSlide, currentServiceIndexcheck, navigate, pageVar
           </p>
         </div>
       </section>
-      <section className="relative px-6 py-4 md:p-8 mb-8 md:mb-24 bg-white overflow-hidden w-full h-auto flex flex-col md:flex-row">
+      <section className="relative px-6 py-4 md:p-8 mb-8 md:mb-24 bg-white overflow-hidden w-full max-w-7xl h-auto flex flex-col justify-self-center md:flex-row">
         <div className="relative flex w-full md:w-7/12">
           <div className="flex flex-col gap-4 py-8 px-4 md:px-6 xl:p-8 justify-center">
             <h3 className="font-bold text-3xl text-black">
@@ -133,7 +133,7 @@ const Service = ({ goToServiceSlide, currentServiceIndexcheck, navigate, pageVar
                 {currentServiceData.subTitleRed}
               </span>
             </h3>
-            <p className="mr-8 lg:mr-24 text-md leading-7 font-semibold tracking-normal text-black overflow-hidden text-clip">{currentServiceData.subCaption}</p>
+            <p className="mr-4 text-md leading-7 font-semibold tracking-normal text-black overflow-hidden text-clip">{currentServiceData.subCaption}</p>
             <button onClick={() => navigate('/contact')} className="inline-flex items-center gap-2 text-red-calm leading-7 text-clip tracking-wide font-inter text-sm md:text-base md:text-lg font-semibold hover:font-extrabold transition-colors group transition duration-300 ease-in-out fill-current">
               Get a Quote for Your Business
               <svg
@@ -151,9 +151,9 @@ const Service = ({ goToServiceSlide, currentServiceIndexcheck, navigate, pageVar
           </div>
         </div>
         <div className="relative flex w-full md:w-5/12 justify-center items-center py-16">
-          <div className={`w-[85%] z-20 h-[250px] bg-cover bg-center rounded-2xl shadow-2xl/30`} style={{backgroundImage : `url(${currentServiceData.subImage})`}}>
+          <div className={`z-20 h-[250px] w-[85%] max-w-[500px] bg-cover bg-center rounded-2xl shadow-2xl/30`} style={{backgroundImage : `url(${currentServiceData.subImage})`}}>
           </div>
-          <div className={`absolute z-0 transform translate-x-1/16 translate-y-1/10 w-[85%] h-[250px] bg-red-calm rounded-2xl shadow-2xl/30`}>
+          <div className={`absolute z-0 transform translate-x-1/16 translate-y-1/10 h-[250px] w-[85%] max-w-[500px] bg-red-calm rounded-2xl shadow-2xl/30`}>
           </div>
         </div>
       </section>

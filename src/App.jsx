@@ -182,8 +182,8 @@ function App() {
         }}
         className={`${user?.role === "officer" ? 'hidden' : 'relative'} z-50 flex items-center w-min-full justify-between px-2 md:px-4 lg:px-8 ${isScrolled ? 'py-6' : 'py-3 md:py-6 xl:py-10'} text-white`}>
           <div className="flex items-center md:gap-2">
-            <div className={`${activeDashboard || isScrolled === false ? 'bg-[url(./assets/logo-asa-white.png)]' : 'bg-[url(./assets/logo-asa-black.png)]'} bg-center bg-no-repeat bg-size-[50px] h-[40px] w-[80px] md:bg-size-[70px] md:h-[40px] md:w-[100px] flex items-center justify-center`}></div>
-            <span className={`${activeDashboard || isScrolled === true ? 'text-black' : 'text-white'} font-extrabold font-inter tracking-wide text-lg xl:text-xl`}>Ardana Sejahtera Abadi</span>
+            <div className={`${isScrolled === true ? 'bg-[url(./assets/logo-asa-black.png)]' : activeDashboard === true ? 'bg-[url(./assets/logo-asa-black.png)]' : 'bg-[url(./assets/logo-asa-white.png)]'} bg-center bg-no-repeat bg-size-[50px] h-[40px] w-[80px] md:bg-size-[70px] md:h-[40px] md:w-[100px] flex items-center justify-center`}></div>
+            <span className={`${isScrolled === true ? 'text-black' : activeDashboard === true ? 'text-black' : 'text-white'} font-extrabold font-inter tracking-wide text-lg xl:text-xl`}>Ardana Sejahtera Abadi</span>
           </div>
 
           <div className="hidden md:flex items-center gap-2 lg:gap-6 xl:gap-8 font-normal font-inter">

@@ -218,9 +218,12 @@ const Officer = ({pageVariants, triggerPopup}) => {
     
         <aside className="w-64 bg-[#2D2D2D] text-white flex flex-col justify-between py-10 px-6 flex-shrink-0">
           <div className="space-y-12">
-            <div className="flex items-center md:gap-1">
-              <div className="bg-[url(./assets/logo-asa.png)] bg-center bg-no-repeat bg-size-[20px] h-[20px] w-[40px] md:bg-size-[60px] md:h-[35px] md:w-[75px] flex items-center justify-center"></div>
-              <span className="font-extrabold font-inter tracking-wide text-base xl:text-lg">ASA Logistics</span>
+            <div className="flex flex-col items-center md:gap-4 mt-4">
+              <div className="flex items-center justify-center">
+                <div className="bg-[url(./assets/logo-asa-white.png)] bg-center bg-no-repeat bg-size-[20px] h-[20px] w-[40px] md:bg-size-[85px] md:h-[50px] md:w-[107px]"></div>
+              </div>
+              
+              <div className="font-extrabold flex justify-center w-full font-inter tracking-wide text-base xl:text-xl">ASA Logistics</div>
             </div>
 
             <div className="flex flex-col items-center space-y-6">
