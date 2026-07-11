@@ -35,21 +35,22 @@ export async function signup(
   email,
   password
 ) {
-  const response = await fetch(
-    `${API_URL}/signup`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-      }),
-    }
-  );
+    
+    const response = await fetch(
+      `${API_URL}/signup`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+        }),
+      }
+    );
 
   return handleResponse(response);
 }

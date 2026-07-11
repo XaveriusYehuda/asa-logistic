@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion, AnimatePresence } from 'framer-motion';
+import { NavLink, useSearchParams } from "react-router-dom";
+import { Link } from "react-scroll";
 
-const MobileViewNavBar = ({ isHamburgerActive, isMobileNavBarActive, navbarMenu, subnavFunction, isMainPageIndexActive }) => {
+const MobileViewNavBar = ({ isHamburgerActive, isMobileNavBarActive, navbarMenu, subnavFunction, isMainPageIndexActive, scrollToSection, isNavbarActive, isSubnavActive, isScrolled }) => {
 
+  const [searchParams] = useSearchParams();
+
+  const currentId = searchParams.get("tab") || navbarMenu[0].idHTML;
+
+  const MotionNavLink = motion(NavLink);
+
+  // Varian animasi container (dipertahankan sesuai bawaan Anda)
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        // Mengatur jeda kemunculan antar child element (0.1 detik)
         staggerChildren: 0.1, 
-        delayChildren: 0.05, // Jeda opsional sebelum child pertama muncul
+        delayChildren: 0.05, 
       },
     },
     exit: {
@@ -22,6 +30,7 @@ const MobileViewNavBar = ({ isHamburgerActive, isMobileNavBarActive, navbarMenu,
     },
   };
 
+  // Varian animasi item sub-menu (dipertahankan sesuai bawaan Anda)
   const itemVariants = {
     hidden: { 
       opacity: 0, 
@@ -43,26 +52,58 @@ const MobileViewNavBar = ({ isHamburgerActive, isMobileNavBarActive, navbarMenu,
 
   return (
     <AnimatePresence mode="wait">
+      {/* isMobileNavBarActive sekarang menerima nilai boolean hasil evaluasi (activeNavbar === navbar.idHTML) */}
       {isMobileNavBarActive && (
         <motion.div
-        key={isMobileNavBarActive}
-        initial={{ opacity: 0, height: 0 }}
-        animate={{ opacity: 1, height: "auto" }}
-        exit={{ opacity: 0, height: 0 }}
-        transition={{ duration: 0.3 }}
-        className="flex flex-col items-center gap-4 font-normal font-inter p-3 z-30 md:hidden overflow-hidden"
+          // Menggunakan variants container yang sudah Anda definisikan agar staggerChildren bekerja
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="flex flex-col items-center gap-2 font-normal font-inter p-3 z-30 md:hidden overflow-hidden"
         >
           {navbarMenu.map((menu, index) => (
-            <motion.button key={index} onClick={() => subnavFunction(index)} variants={itemVariants} className={`hover:text-red-calm ${isMainPageIndexActive === index ? 'text-red-calm font-bold' : 'text-white'} transition duration-300 ease-in-out text-xs`}>
-              {menu.title}
-            </motion.button>
+            <React.Fragment key={menu.idHTML}>
+              {/* <MotionNavLink 
+                to={menu.path}
+                variants={itemVariants}
+                onClick={() => {
+                  if (isNavbarActive === "service") { 
+                    subnavFunction(menu.idHTML);
+                  } else {
+                    scrollToSection(menu.idHTML);
+                  }
+                }}
+                className={`flex hover:text-red-calm ${String(currentId) === String(menu.idHTML) ? 'text-red-calm font-bold' : isScrolled ? 'text-black' : 'text-white'} transition duration-300 ease-in-out text-sm`}
+              >
+                {menu.title}
+              </MotionNavLink> */}
+              <motion.div variants={itemVariants}>
+                <Link
+                  to={menu.idHTML}
+                  spy
+                  smooth
+                  duration={1500}
+                  offset={-70}
+                  onClick={() => {
+                    if (isNavbarActive === "service") { 
+                      subnavFunction(menu.path);
+                    } else {
+                      //  closeDropdown(); setTimeout(() => {scrollToSection(menu.path);}, 200);
+                      scrollToSection(menu.path);
+                    }
+                  }}
+                  className={`flex hover:text-red-calm ${String(currentId) === String(menu.idHTML) ? 'text-red-calm font-bold' : isScrolled ? 'text-black' : 'text-white'} transition duration-300 ease-in-out text-sm`}
+                >
+                  {menu.title}
+                </Link>
+              </motion.div>
+
+              {index !== navbarMenu.length - 1 && (
+                <div className="mx-4 border-b border-gray-100" />
+              )}
+            </React.Fragment>
           ))}
-          {/* <a href="#" className="hover:text-red-calm transition text-white text-xs">Resources</a>
-          <a href="#" className="hover:text-red-calm transition text-white text-xs">Service</a>
-          <a href="#" className="hover:text-red-calm transition text-white text-xs">Career</a>
-          <a href="#" className="bg-red-calm hover:bg-red-400 px-4 py-2 rounded-full transition text-white font-semibold text-xs">Contact Us</a> */}
-          {/* <div className={`${isNavBarActive ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5 pointer-events-none'} absolute top-full left-0 w-full pt-2 pb-6 bg-black/70 transition duration-300 ease-in-out`}> */}
-          {/* </div> */}
         </motion.div>
       )}
     </AnimatePresence>

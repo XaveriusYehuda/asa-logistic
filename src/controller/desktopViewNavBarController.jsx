@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { NavLink, useSearchParams, useLocation } from "react-router-dom";
 import { animateScroll as scroll } from 'react-scroll';
 
-const DesktopViewNavBarController = ({scrollToSection,subnavFunction, activeSubNav, isLogin, activeDashboard, setActiveDashboard, urlLocation, handleLogout, isScrolled}) => {
+const DesktopViewNavBarController = ({scrollToSection, subnavFunction, activeSubNav, isLogin, activeDashboard, setActiveDashboard, urlLocation, handleLogout, isScrolled}) => {
 
   const [searchParams] = useSearchParams();
 
@@ -143,11 +143,6 @@ const DesktopViewNavBarController = ({scrollToSection,subnavFunction, activeSubN
           <NavLink 
             to="/signup" 
             onClick={(e) => {
-              if(isScrolled){ 
-                e.preventDefault(); 
-                // desktopNavBarTogle(navbar.idHTML);
-              }
-
               desktopNavBarTogle(navbar.idHTML);
             }}
             className={`${activeDashboard || isScrolled === true ? 'text-black' : 'text-white'} flex hover:text-red-calm transition duration-300 ease-in-out text-sm`}>
@@ -186,11 +181,6 @@ const DesktopViewNavBarController = ({scrollToSection,subnavFunction, activeSubN
           <NavLink 
             to="/login" 
             onClick={(e) => {
-              if(isScrolled){ 
-                e.preventDefault(); 
-                // desktopNavBarTogle(navbar.idHTML);
-              }
-
               desktopNavBarTogle(navbar.idHTML);
             }} 
             className={`${activeDashboard || isScrolled === true ? 'text-black' : 'text-white'} flex hover:text-red-calm transition duration-300 ease-in-out text-sm`}>

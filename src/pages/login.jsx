@@ -61,16 +61,16 @@ const Login = ({pageVariants, triggerPopup, popupActive, setPopupActive, popupCo
     
         <div className="bg-white rounded-[50px] max-w-5xl w-full p-8 sm:p-12 lg:p-16 shadow-[5px_5px_20px_rgba(0,0,0,0.25)] relative z-10 border border-gray-100/50">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
             
-            <div className="lg:col-span-6 space-y-4 h-[370px] content-center pb-10">
+            <div className="lg:col-span-6 space-y-2 md:h-[370px] content-center py-6 md:px-0">
               <div className="flex items-center gap-2">
-                <div className="inline h-3 w-3 block bg-red-calm self-end mb-1.75 transform rounded-full"></div>
-                <h2 className="text-4xl sm:text-5xl font-bold font-inter text-black tracking-wide flex items-center gap-3">
+                <div className="inline h-1.5 w-1.5 md:h-3 md:w-3 block bg-red-calm self-end mb-1.75 transform rounded-full"></div>
+                <h2 className="text-2xl sm:text-5xl font-bold font-inter text-black tracking-wide flex items-center gap-2 md:gap-3">
                   Hi, there <span className="text-yellow-400">✨</span>
                 </h2>
               </div>
-              <p className="text-lg sm:text-xl font-bold font-inter text-black tracking-wide leading-tight">
+              <p className="text-sm sm:text-lg font-bold font-inter text-black tracking-wide leading-tight">
                 Please login to access more information.
               </p>
             </div>

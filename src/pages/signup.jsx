@@ -61,16 +61,16 @@ const SignUp = ({pageVariants, triggerPopup, popupActive, setPopupActive, popupC
   
         <div class="bg-white rounded-[50px] max-w-5xl w-full p-8 sm:p-12 lg:p-16 shadow-[5px_5px_20px_rgba(0,0,0,0.25)] relative z-10 border border-gray-100/50">
           
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
             
-            <div class="lg:col-span-6 space-y-4">
+            <div class="lg:col-span-6 space-y-2 md:h-[370px] content-center py-6 md:px-0">
               <div class="flex items-center gap-2">
-                <span class="inline h-3 w-3 block bg-red-calm self-end mb-1.75 transform rounded-full"></span>
-                <h2 class="text-4xl sm:text-5xl font-bold font-inter text-black tracking-wide flex items-center gap-3">
+                <div class="inline h-1.5 w-1.5 md:h-3 md:w-3 block bg-red-calm self-end mb-1.75 transform rounded-full"></div>
+                <h2 class="text-2xl sm:text-5xl font-bold font-inter text-black tracking-wide flex items-center gap-2 md:gap-3">
                   Hi, there <span class="text-yellow-400">✨</span>
                 </h2>
               </div>
-              <p class="text-lg sm:text-xl font-bold font-inter text-black tracking-wide leading-tight">
+              <p class="text-xs sm:text-lg font-bold font-inter text-black tracking-wide leading-tight">
                 Please sign up to access more information.
               </p>
             </div>

@@ -168,7 +168,7 @@ function App() {
         <motion.nav
         animate={{
           backgroundColor: isScrolled
-            ? "rgba(255,255,255,0.75)"
+            ? "rgba(255,255,255,1)"
             : "rgba(255,255,255,0)",
           boxShadow: isScrolled
             ? "0 10px 30px rgba(0,0,0,0.1)"
@@ -182,23 +182,23 @@ function App() {
         }}
         className={`${user?.role === "officer" ? 'hidden' : 'relative'} z-50 flex items-center w-min-full justify-between px-2 md:px-4 lg:px-8 ${isScrolled ? 'py-6' : 'py-3 md:py-6 xl:py-10'} text-white`}>
           <div className="flex items-center md:gap-2">
-            <div className={`${isScrolled === true ? 'bg-[url(./assets/logo-asa-black.png)]' : activeDashboard === true ? 'bg-[url(./assets/logo-asa-black.png)]' : 'bg-[url(./assets/logo-asa-white.png)]'} bg-center bg-no-repeat bg-size-[50px] h-[40px] w-[80px] md:bg-size-[70px] md:h-[40px] md:w-[100px] flex items-center justify-center`}></div>
-            <span className={`${isScrolled === true ? 'text-black' : activeDashboard === true ? 'text-black' : 'text-white'} font-extrabold font-inter tracking-wide text-lg xl:text-xl`}>Ardana Sejahtera Abadi</span>
+            <div className={`${isScrolled ? 'bg-[url(./assets/logo-asa-black.png)]' : activeDashboard ? 'bg-[url(./assets/logo-asa-white.png)]' : 'bg-[url(./assets/logo-asa-white.png)]'} bg-center bg-no-repeat bg-size-[50px] h-[40px] w-[80px] md:bg-size-[70px] md:h-[40px] md:w-[100px] flex items-center justify-center`}></div>
+            <span className={`${isScrolled ? 'text-black' : activeDashboard ? 'text-white' : 'text-white'} font-extrabold font-inter tracking-wide text-lg xl:text-xl`}>Ardana Sejahtera Abadi</span>
           </div>
 
           <div className="hidden md:flex items-center gap-2 lg:gap-6 xl:gap-8 font-normal font-inter">
             <DesktopViewNavBarController scrollToSection={scrollToSection} subnavFunction={goToServiceSlide} activeSubNav={currentServiceIndex} isLogin={ user?.role } activeDashboard={activeDashboard} setActiveDashboard={setActiveDashboard} urlLocation={urlLocation} handleLogout={handleLogout} isScrolled={isScrolled} />
           </div>
           <div className="md:hidden flex flex-col items-center gap-4 w-[70px]">
-            <MobileViewNavBarController subnavFunction={goToServiceSlide} isMainPageIndexActive={currentServiceIndex} />
+            <MobileViewNavBarController subnavFunction={goToServiceSlide} isMainPageIndexActive={currentServiceIndex} scrollToSection={scrollToSection} activeSubNav={currentServiceIndex} isLogin={ user?.role } activeDashboard={activeDashboard} setActiveDashboard={setActiveDashboard} urlLocation={urlLocation} handleLogout={handleLogout} isScrolled={isScrolled} />
           </div>
         </motion.nav>
       </header>
 
       <AnimatePresence mode="wait">
         <Routes>
-          <Route path="/" element={<About isLogin={user} scrollToSection={scrollToSection} navigate={navigate} pageVariants={pageVariants} setArticleData={setArticleData} choosenArticle={choosenArticle} setChoosenArticle={setChoosenArticle} />} />
-          <Route path="/home" element={<About isLogin={user} scrollToSection={scrollToSection} navigate={navigate} pageVariants={pageVariants} setArticleData={setArticleData} choosenArticle={choosenArticle} setChoosenArticle={setChoosenArticle} />} />
+          <Route path="/" element={<About isLogin={user} scrollToSection={scrollToSection} navigate={navigate} pageVariants={pageVariants} setArticleData={setArticleData} choosenArticle={choosenArticle} setChoosenArticle={setChoosenArticle} triggerPopup={triggerPopup} />} />
+          <Route path="/home" element={<About isLogin={user} scrollToSection={scrollToSection} navigate={navigate} pageVariants={pageVariants} setArticleData={setArticleData} choosenArticle={choosenArticle} setChoosenArticle={setChoosenArticle} triggerPopup={triggerPopup} />} />
           <Route path="/article" element={<Article article={articleData} pageVariants={pageVariants} navigate={navigate} choosenArticle={choosenArticle} setChoosenArticle={setChoosenArticle} />} />
           <Route path="/service" element={<Service goToServiceSlide={goToServiceSlide} currentServiceIndexcheck={currentServiceIndex} navigate={navigate} pageVariants={pageVariants} />} />
           <Route path="/resource" element={<Resource currentResourceIndex={currentResourceIndex} scrollToSection={scrollToSection} navigate={navigate} pageVariants={pageVariants} />} />

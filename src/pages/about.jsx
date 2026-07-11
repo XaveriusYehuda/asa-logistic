@@ -29,7 +29,7 @@ import { uploadRFQ } from '../api/rfqAPI'
 import sampleArticleFromDB from "../data/articleData";
 import { animateScroll as scroll } from 'react-scroll';
 
-const About = ( {isLogin, navigate, pageVariants, setArticleData, choosenArticle, setChoosenArticle} ) => {
+const About = ( {isLogin, navigate, pageVariants, setArticleData, choosenArticle, setChoosenArticle, triggerPopup} ) => {
 
   const heroData = [
     {
@@ -79,13 +79,20 @@ const About = ( {isLogin, navigate, pageVariants, setArticleData, choosenArticle
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!isLogin) {
+      triggerPopup(
+        "Pemberitahuan",
+        <p className="py-4 text-sm lg:text-base leading-6 md:leading-7 font-semibold tracking-normal text-black text-left">
+          Silahkan <span className="font-extrabold text-red-calm">Login</span> Terlebih dahulu
+        </p>
+      );
+      return; // Stop eksekusi di sini
+    }
+
     const formData = new FormData();
 
-    const currentUser = isLogin?.isLogin;
-    const data = currentUser.public_id;
-  
-    if (currentUser) {
-      formData.append("user_id", data);
+    if (isLogin && isLogin.public_id) {
+      formData.append("user_id", isLogin.public_id);
     }
   
     formData.append('service_type', selectedService);
@@ -99,13 +106,22 @@ const About = ( {isLogin, navigate, pageVariants, setArticleData, choosenArticle
     });
 
     try {
-      const response = await uploadRFQ(formData);
+      await uploadRFQ(formData);
+      triggerPopup(
+        "Pemberitahuan",
+        <p className="py-4 text-sm lg:text-base leading-6 md:leading-7 font-semibold tracking-normal text-black text-left">
+          RFQ untuk layanan <span className="font-extrabold text-red-calm">{selectedService.replace('_', ' ')}</span> berhasil dikirim!
+        </p>
+      );
     } catch (err) {
       setError('Terjadi kesalahan jaringan.');
+      triggerPopup(
+        "Error",
+        <p className="y-4 text-sm lg:text-base leading-6 md:leading-7 font-semibold tracking-normal text-black text-left">
+          Terjadi kesalahan jaringan saat mengirim data.
+        </p>
+      );
     }
-
-    alert(`RFQ untuk layanan ${selectedService} berhasil disimulasikan! Cek konsol log.`);
-
   };
 
   const currentData = heroData[currentIndex];
@@ -360,8 +376,8 @@ const About = ( {isLogin, navigate, pageVariants, setArticleData, choosenArticle
             </div>
           </div>
         </section>
-        <section id="rfq" className="relative pt-20 pb-14 px-4 sm:px-8 lg:px-16 bg-red-calm relative overflow-hidden overflow-x-hidden w-full">
-          
+        <section id="rfq" className="relative py-26 px-4 sm:px-8 lg:px-16 bg-black-calm relative overflow-hidden overflow-x-hidden w-full">
+                
           <div className="text-center text-white mb-10">
             <h2 className="text-3xl sm:text-4xl font-extrabold mb-2 tracking-wide">Need to Make an Enquiry?</h2>
             <p className="text-lg sm:text-xl font-medium opacity-90">Start Save Your Money Today</p>
@@ -537,7 +553,7 @@ const About = ( {isLogin, navigate, pageVariants, setArticleData, choosenArticle
                     onChange={(e) => handleInputChange("notes", e.target.value)}
                     value={serviceDetails['notes'] || ''}
                     placeholder={`Notes
-    Example : What kind of documents would you like us to handle?`} 
+  Example : What kind of documents would you like us to handle?`} 
                     className="w-full bg-white text-black border-2 border-black rounded-[24px] py-3 px-5 font-bold text-sm placeholder-black resize-none focus:outline-none focus:ring-2 focus:ring-red-500 focus:placeholder-transform focus:placeholder-translate-x-5">
                   </textarea>
                 </div>

@@ -53,7 +53,6 @@ const ContactUs = ({ isLogin, pageVariants }) => {
       return; // Stop eksekusi di sini
     }
 
-
     const formData = new FormData();
 
     if (isLogin && isLogin.public_id) {

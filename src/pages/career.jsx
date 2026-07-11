@@ -23,7 +23,11 @@ const Career = ({currentCareerIndex, scrollToSection, pageVariants}) => {
         <div className="md:hidden h-full w-full"></div>
         <div className="md:relative md:h-[88px] lg:h-[120px] w-full"></div>
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <img src={heroCareer} alt="Hero Career Page" className={`absolute inset-0 bg-cover bg-center bg-no-repeat}`} />
+          <div 
+            style={{ 
+              backgroundImage: `url(${heroCareer})`,
+            }} 
+            className={`absolute inset-0 bg-cover bg-center bg-no-repeat}`} />
         </div>
         <div className="bg-black z-10 inset-0 absolute opacity-20">
         </div>
